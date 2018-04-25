@@ -47,6 +47,9 @@ app.get('/secret', function(req, res){
 app.get('/route', function(requestObject, responseObject) {
 	responseObject.send('Send whatever you want');
 });
+app.get('/marciscool', function(requestObject, responseObject) {
+	responseObject.send('Yeah Marc is pretty cool');
+	});
 
 // This starts up our server on port 3000. This where `localhost:3000`
 // comes from.
