@@ -6,18 +6,20 @@
 //    This link is the documentation for ExpressJS, but it might be a little
 //	  complicated to read for you right now.
 const express = require('express');  
-const PORT = process.env.PORT || 5000
-//hello
 
 // This creates our web app.
 const app = express();
+const http = require('http').Server(app);
+
+// Create the Server socket.
+const io = require('socket.io')(http);
 
 // Kinda confusng but this is so that the server
 // automtically looks for files in resources/ folder 
 // when a request comes in.
 // Try: http://localhost:3000/index.html
 // Try: http://localhost:3000/main.js 		// Will actually give you the text of main.js
-app.use(express.static('resources'))
+app.use(express.static('resources'));
 
 // When you visit:
 // http://localhost:3000/ -> You will see the contents of index.html
@@ -48,16 +50,25 @@ app.get('/secret', function(req, res){
 app.get('/route', function(requestObject, responseObject) {
 	responseObject.send('Send whatever you want');
 });
-app.get('/marciscool', function(requestObject, responseObject) {
-	responseObject.send('Yeah Marc is pretty cool');
+
+// Listen for socket connections
+io.on('connection', function(socket) {
+	console.log('User connected');
+	// Listen for a particular socket sending a message.
+	socket.on('messageSent', function(message){
+		console.log('Message: ' + message);
+		// When we receive the message, send it to all
+		// other users on our site.
+		io.emit("messagePosted", message);
 	});
+});
 
 // This starts up our server on port 3000. This where `localhost:3000`
 // comes from.
 // Feel free to change it to another number, but doesn't change
 // anything. Just pick anything higher than 3000. (Other numbers
 // might be reserved for the operating system.
-app.listen(PORT,function() {
-	console.log('Server started running on port PORT!');
+http.listen(3000, function() {
+	console.log('Server started running on port 3000!');
 });
 
