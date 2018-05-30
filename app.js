@@ -69,7 +69,6 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('disconnect', function(){
-		console.log('Message: ' + message);
 		usercount-- ;
 		// When we receive the message, send it to all
 		// other users on our site.
