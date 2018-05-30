@@ -11,6 +11,7 @@ window.onload = function() {
 	var sendButton = document.getElementById("sendButton");
 	var messageBox = document.getElementById("messageBox");
 	var messageList = document.getElementById("messageList");
+	var usercountdisplay = document.getElementById("userCountDisplay");
 
 	// When a user clicks the send-button,
 	sendButton.addEventListener("click", function() {
@@ -36,6 +37,9 @@ window.onload = function() {
 		messageList.append(newListElement);
 	});
 
+	socket.on("updateUsercount", function(newcount) {
+		usercountdisplay.text = newcount + (usersonline);
+		});
 
 	// This is some magic so that when a user presses
 	// enter in the textbox, we trigger a send
