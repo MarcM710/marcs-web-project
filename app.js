@@ -59,7 +59,7 @@ var usercount = 0;
 io.on('connection', function(socket) {
 	console.log('User connected');
 	usercount++;
-	io.emit("messagePosted", "Users logged in: " + usercount);
+	io.emit("updateUsercount", usercount);
 	// Listen for a particular socket sending a message.
 	socket.on('messageSent', function(message){
 		console.log('Message: ' + message);
@@ -72,7 +72,7 @@ io.on('connection', function(socket) {
 		usercount--;
 		// When we receive the message, send it to all
 		// other users on our site.
-		io.emit("messagePosted", "Users logged in: " + usercount) ; 
+		io.emit("updateUsercount", usercount) ; 
 	});
 });
 
