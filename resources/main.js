@@ -38,7 +38,7 @@ window.onload = function() {
 	});
 
 	socket.on("updateUsercount", function(newcount) {
-		usercountdisplay.text = newcount + "Users Online" ;
+		usercountdisplay.text = newcount + " Users Online" ;
 		});
 
 	// This is some magic so that when a user presses
